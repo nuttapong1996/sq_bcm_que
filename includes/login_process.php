@@ -10,21 +10,22 @@ if(isset($_POST['login'])&& !empty($_POST['username']) && !empty($_POST['passwor
     //เก็บค่า password ที่ส่งมา 
     $password= $_POST['password'];
 
-    $sql = "SELECT * FROM tbl_users
-            WHERE username = :username
-            AND password = :password";
+    $sql = "SELECT * FROM tbl_users WHERE username = :username";
 
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-    $stmt->bindParam(':password', $password, PDO::PARAM_STR);
     $stmt->execute();
 
     $username_rersult = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    //ตรวจสอบว่ามี username อยู่ในระบบหรือไม่
     if($username_rersult){
 
+        //ตรวจสอบว่า password ที่รับมากับ password ที่เก็บในฐานข้อมูล  
         if(password_verify($password, $username_rersult['password'])){
-            //เก็บค่า username และ password ที่ส่งมา
+        // if($password == $username_rersult['password']){
+
+            //เก็บค่า username ที่ส่งมาลง SESSION
             $_SESSION['username'] = $username;
             header('location: ../home.php');
         }else{
