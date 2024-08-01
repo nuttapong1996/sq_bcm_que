@@ -1,6 +1,7 @@
 <?php
+session_start();
 //ตรวจสอบปุ่ม login และ ตรวจสอบว่ามีค่า username และ password ที่ส่งมาหรือไม่
-if(isset($_POST['login'])&& !empty($_POST['username']) && !empty($_POST['password'])){
+if(isset($_POST['login'])){
 
     //เรียกไฟล์ connect_db.php
     require_once('connect_db.php'); 
@@ -10,7 +11,14 @@ if(isset($_POST['login'])&& !empty($_POST['username']) && !empty($_POST['passwor
     //เก็บค่า password ที่ส่งมา 
     $password= $_POST['password'];
 
-    $sql = "SELECT * FROM tbl_users WHERE username = :username";
+    $sql = "SELECT 
+                a.username , a.password , a.firstname , a.lastname , a.role , b.crusher_name 
+            FROM 
+                tbl_users as a , 
+                tbl_crusher as b
+            WHERE a.crusher_id = b.crusher_id
+            AND
+                username = :username";
 
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -23,24 +31,29 @@ if(isset($_POST['login'])&& !empty($_POST['username']) && !empty($_POST['passwor
 
         //ตรวจสอบว่า password ที่รับมากับ password ที่เก็บในฐานข้อมูล  
         if(password_verify($password, $username_rersult['password'])){
-        // if($password == $username_rersult['password']){
 
-            //เก็บค่า username ที่ส่งมาลง SESSION
-            $_SESSION['username'] = $username;
-            header('location: ../home.php');
+            //เก็บค่าที่ส่งมาลง SESSION 
+            $_SESSION['username'] = $username_rersult['username'];
+            $_SESSION['firstname'] = $username_rersult['firstname'];
+            $_SESSION['lastname'] = $username_rersult['lastname'];
+            $_SESSION['role'] = $username_rersult['role'];
+            $_SESSION['crusher'] = $username_rersult['crusher_name'];
+
+            //login สําเร็จ
+            header('location: ../login.php?msg=0');
         }else{
             //error password ไม่ถูกต้อง
-            header('location: ../login.php?error=3');
+            header('location: ../login.php?msg=4');
         }
 
     }else{
         // error ไม่พบ Username
-        header('location: ../login.php?error=2');
+        header('location: ../login.php?msg=3');
     }
 
 }else{
     // error กรอกข้อมูลไม่ครบ
-    header('location: ../login.php?error=1');
+    header('location: ../login.php?msg=2');
 
 }
  ?>
