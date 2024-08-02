@@ -1,4 +1,7 @@
-<?php require_once 'includes/auth.php';?>
+<?php 
+    require_once 'includes/auth.php';
+    $title ='Dashboard';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('includes/head.php'); ?>
     <link rel="stylesheet" href="css/style.css">
-    <title>Dashboard</title>
+    <title><?php echo $title; ?></title>
 </head>
 <body class="sb-nav-fixed">
     <?php include('components/topnav.php'); ?>
@@ -16,9 +19,9 @@
         <div id="layoutSidenav_content"> 
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Dashboard</h1>
+                    <h1 class="mt-4"><?php echo $title; ?></h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active"><?php echo $title; ?></li>
                     </ol>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">

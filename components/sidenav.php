@@ -25,9 +25,9 @@
                 </a>
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Users</a>
-                        <a class="nav-link" href="#">Crushers</a>
-                        <a class="nav-link" href="#">Trucks</a>
+                        <a class="nav-link" href="#"> <i class="fas fa-users"></i>&nbsp;Users</a>
+                        <a class="nav-link" href="#"> <i class="fas fa-gear"></i>&nbsp;Crushers</a>
+                        <a class="nav-link" href="#"> <i class="fas fa-truck"></i>&nbsp;Trucks</a>
                     </nav>
                 </div>
                 <?php } ?>
@@ -63,7 +63,7 @@
                     </nav>
                 </div> -->
 
-                <div class="sb-sidenav-menu-heading">Data Charts</div>
+                <div class="sb-sidenav-menu-heading">Data Report</div>
                 <a class="nav-link" href="#l">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     Charts
