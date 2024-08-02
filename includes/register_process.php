@@ -27,7 +27,7 @@ if(isset($_POST['register'])){
                     :password, 
                     :firstname, 
                     :lastname,
-                    'u', 
+                    'g', 
                     :crusher)";
 
     $stmt = $conn->prepare($sql);
